@@ -1,5 +1,6 @@
 package Tests;
 
+import Pages.DashboardPage;
 import Pages.HomePage;
 import Pages.LoginPage;
 import Utils.BrowserFactory;
@@ -14,19 +15,22 @@ public class Base {
     protected WebDriver driver;
     protected HomePage homePage;
     protected LoginPage loginPage;
+    protected DashboardPage dashboardPage;
     protected TakeScreenshots takeScreenshots;
 
     @BeforeClass
     public void setUp() {
-        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "true"));
+        boolean headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
 
         driver = BrowserFactory.startBrowser("chrome","https://ndosisimplifiedautomation.vercel.app/",headless);
 
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
+        dashboardPage = new DashboardPage(driver);
 
         PageFactory.initElements(driver, homePage);
         PageFactory.initElements(driver, loginPage);
+        PageFactory.initElements(driver, dashboardPage);
 
         takeScreenshots = new TakeScreenshots();
     }
